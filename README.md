@@ -59,10 +59,11 @@
 	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/multi-model-solution.png" alt="Sample">
 </p>
 &emsp;&emsp;多模特选择方案支持更多样的模特选择，实现方法可以参阅<a href='http://www.seeprettyface.com/research_notes.html'>我的研究笔记</a>。<br />
-<br /><br />
+<br />
 
 # 后续计划
-&emsp;&emsp;我后续会去做一些语音和文本方面的技术研究，并将其融入进视觉生成当中。我认为将更多模态的信息融入进来有利生成图像的表意更加精准，并且融合语音+图像生成的应用玩法非常多，会是下一个技术风口所在。
+&emsp;&emsp;我后续会去做一些语音和文本方面的技术研究，并将其融入进视觉生成当中。我认为将更多模态的信息融入进来有利生成图像的表意更加精准，并且融合语音+图像生成的应用玩法非常多，会是下一个技术风口所在。<br />
+<br /><br />
 
 # 致谢
 &emsp;&emsp;代码部分借用了<a href='https://github.com/Puzer/stylegan-encoder'>Puzer</a>和<a href='https://github.com/pbaylies/stylegan-encoder'>Pbaylies</a>的代码，感谢分享。<br />
