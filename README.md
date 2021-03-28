@@ -34,7 +34,9 @@
 <p align="center">转多种风格图片——1排：输入-2-5排：输出</p><br/>
 
 # Inference框架
-&emsp;&emsp;![Image text](https://github.com/a312863063/Model-Swap-Face/blob/main/pics/architecture.png)<br/><br/>
+<p align="center">
+	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/architecture.png" alt="Sample">
+</p>
 
 # 使用方法
 ## 环境配置
@@ -46,4 +48,9 @@
 ## 运行方法
 &emsp;&emsp;1.按照```netwotk/download_weights.txt```所示将模型文件下载至networks文件夹下。
 &emsp;&emsp;2.配置好main.py并运行```python main.py```。
+
+# 多模特选择方案
+<p align="center">
+	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/.png" alt="Sample">
+</p>
 
