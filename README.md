@@ -4,17 +4,17 @@
 # 效果预览
 ## 单图输入-输出展示
 <p align="center">
-	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/single_inpput.png" alt="Sample" width="1024" height="1024">
+	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/single_input.png" alt="Sample">
 </p>
 <p align="center">输入</p><br/>
 <p align="center">
-	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/single_output.png" alt="Sample" width="1024" height="1024">
+	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/single_output.png" alt="Sample">
 </p>
 <p align="center">模特风格输出</p><br/><br/>
 
 ## 多图对比展示
 <p align="center">
-	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/preview.jpg" alt="Sample" width="1280" height="1280">
+	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/preview.jpg" alt="Sample">
 </p>
 <p align="center">多效果转换图预览</p>
 
@@ -23,20 +23,27 @@
 <p align="center">
 	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/example_2kids.jpg" alt="Sample">
 </p>
-<p align="center">转小孩子风格图片</p><br/>
+<p align="center">转小孩子风格图片——左：输入-右：输出</p><br/>
 <p align="center">
 	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/example_2wanghong.png" alt="Sample">
 </p>
-<p align="center">转网红风格图片</p><br/>
+<p align="center">转网红风格图片——左：输入-右：输出</p><br/>
 <p align="center">
 	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/examples_mix.jpg" alt="Sample">
 </p>
-<p align="center">转多种风格图片</p><br/>
+<p align="center">转多种风格图片——1排：输入-2-5排：输出</p><br/>
 
 # Inference框架
 &emsp;&emsp;![Image text](https://github.com/a312863063/Model-Swap-Face/blob/main/pics/architecture.png)<br/><br/>
 
 # 使用方法
 ## 环境配置
-
+* Both Linux and Windows are supported, but we strongly recommend Linux for performance and compatibility reasons.
+* 64-bit Python 3.6 installation. We recommend Anaconda3 with numpy 1.14.3 or newer.
+* TensorFlow 1.10.0 or newer with GPU support.
+* One or more high-end NVIDIA GPUs with at least 11GB of DRAM. We recommend NVIDIA DGX-1 with 8 Tesla V100 GPUs.
+* NVIDIA driver 391.35 or newer, CUDA toolkit 9.0 or newer, cuDNN 7.3.1 or newer.
+## 运行方法
+&emsp;&emsp;1.按照```netwotk/download_weights.txt```所示将模型文件下载至networks文件夹下。
+&emsp;&emsp;2.配置好main.py并运行```python main.py```。
 
