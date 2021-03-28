@@ -62,5 +62,5 @@
 <br /><br />
 
 # 致谢
-&emsp;&emsp;代码借用了<a href='https://github.com/Puzer/stylegan-encoder'>Puzer</a>和<a href='https://github.com/pbaylies/stylegan-encoder'>Pbaylies</a>的代码。<br />
+&emsp;&emsp;代码借用了<a href='https://github.com/Puzer/stylegan-encoder'>Puzer</a>和<a href='https://github.com/pbaylies/stylegan-encoder'>Pbaylies</a>的代码，感谢分享。<br />
 <br /><br />
