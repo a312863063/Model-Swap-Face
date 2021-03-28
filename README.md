@@ -19,7 +19,7 @@
 <p align="center">多效果转换图预览</p>
 
 ## 替换效果展示
-&emsp;&emsp;此处是展示生成图像替换回原图的效果。<br/>
+&emsp;&emsp;此处是展示生成图像替换回原图的效果，引入了额外的后处理。<br/>
 <p align="center">
 	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/example_2kids.jpg" alt="Sample">
 </p>
@@ -62,5 +62,5 @@
 <br /><br />
 
 # 致谢
-&emsp;&emsp;代码借用了<a href='https://github.com/Puzer/stylegan-encoder'>Puzer</a>和<a href='https://github.com/pbaylies/stylegan-encoder'>Pbaylies</a>的代码，感谢分享。<br />
+&emsp;&emsp;代码部分借用了<a href='https://github.com/Puzer/stylegan-encoder'>Puzer</a>和<a href='https://github.com/pbaylies/stylegan-encoder'>Pbaylies</a>的代码，感谢分享。<br />
 <br /><br />
