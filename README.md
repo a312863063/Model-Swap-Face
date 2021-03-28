@@ -32,12 +32,12 @@
 	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/examples_mix.jpg" alt="Sample">
 </p>
 <p align="center">转多种风格图片——1排：输入-2-5排：输出</p><br/>
-
+<br /><br />
 # Inference框架
 <p align="center">
 	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/architecture.png" alt="Sample">
-</p>
-
+</p><br />
+<br /><br />
 # 使用方法
 ## 环境配置
 * Both Linux and Windows are supported, but we strongly recommend Linux for performance and compatibility reasons.
@@ -46,9 +46,9 @@
 * One or more high-end NVIDIA GPUs with at least 11GB of DRAM. We recommend NVIDIA DGX-1 with 8 Tesla V100 GPUs.
 * NVIDIA driver 391.35 or newer, CUDA toolkit 9.0 or newer, cuDNN 7.3.1 or newer.
 ## 运行方法
-&emsp;&emsp;1.按照```netwotk/download_weights.txt```所示将模型文件下载至networks文件夹下。
-&emsp;&emsp;2.配置好main.py并运行```python main.py```。
-
+&emsp;&emsp;1.按照```netwotk/download_weights.txt```所示将模型文件下载至networks文件夹下。<br />
+&emsp;&emsp;2.配置好main.py并运行```python main.py```。<br />
+<br /><br />
 # 多模特选择方案
 <p align="center">
 	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/multi-model-solution.png" alt="Sample">
