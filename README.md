@@ -58,5 +58,8 @@
 <p align="center">
 	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/multi-model-solution.png" alt="Sample">
 </p>
-&emsp;&emsp;多模特选择方案支持更多样的模特选择，实现方法可以参阅<a href='http://www.seeprettyface.com/research_notes.html'>我的研究笔记</a>。
-
+&emsp;&emsp;多模特选择方案支持更多样的模特选择，实现方法可以参阅<a href='http://www.seeprettyface.com/research_notes.html'>我的研究笔记</a>。<br />
+<br /><br />
+# 致谢
+&emsp;&emsp;代码借用了<a href='https://github.com/Puzer/stylegan-encoder'>Puzer</a>和<a href='https://github.com/pbaylies/stylegan-encoder'>Pbaylies</a>的代码。<br />
+<br /><br />
