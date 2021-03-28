@@ -5,22 +5,32 @@
 ## 单图展示
 &emsp;&emsp;![Image text](https://github.com/a312863063/Model-Swap-Face/blob/main/pics/single_input.png)<br/>
 <p align="center">输入</p><br/>
-&emsp;&emsp;![Image text](https://github.com/a312863063/Model-Swap-Face/blob/main/pics/single_output.png)<br/>
+<p align="center">
+	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/single_output.png" alt="Sample">
+</p>
 <p align="center">模特风格输出</p><br/><br/>
+
 ## 多图展示
-&emsp;&emsp;![Image text](https://github.com/a312863063/Model-Swap-Face/blob/main/pics/preview.jpg)<br/>
+<p align="center">
+	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/preview.jpg" alt="Sample">
+</p>
 <p align="center">多效果转换图预览</p>
+
 ## 替换效果展示
 &emsp;&emsp;此处是展示生成图像替换回原图的效果，有做简单修图处理。<br/>
-&emsp;&emsp;![Image text](https://github.com/a312863063/Model-Swap-Face/blob/main/pics/example_2kids.jpg)<br/>
+<p align="center">
+	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/example_2kids.jpg" alt="Sample">
+</p>
 <p align="center">转小孩子风格图片</p><br/>
-&emsp;&emsp;![Image text](https://github.com/a312863063/Model-Swap-Face/blob/main/pics/example_2wanghong.png)<br/>
+<p align="center">
+	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/example_2wanghong.png" alt="Sample">
+</p>
 <p align="center">转网红风格图片</p><br/>
-&emsp;&emsp;![Image text](https://github.com/a312863063/Model-Swap-Face/blob/main/pics/examples_mix.jpg)<br/>
+<p align="center">
+	<img src="https://github.com/a312863063/Model-Swap-Face/blob/main/pics/examples_mix.jpg" alt="Sample">
+</p>
 <p align="center">转多种风格图片</p><br/>
 
-
-
-# 模型简述
+# Inference框架
 &emsp;&emsp;![Image text](https://github.com/a312863063/Model-Swap-Face/blob/main/pics/architecture.png)<br/><br/>
 
