@@ -61,9 +61,6 @@
 &emsp;&emsp;多模特选择方案支持更多样的模特选择，实现方法可以参阅<a href='http://www.seeprettyface.com/research_notes.html'>我的研究笔记</a>。<br />
 <br /><br />
 
-# 后续计划
-&emsp;&emsp;从短视频的发展趋势来看，动态的商品展示会更有吸引力，所以模特能够被“驱动”也很重要。所以，我后续会尝试去做一些语音和文本方面的技术研究，并将其融入进视觉生成当中。我认为基于语音驱动+图像生成的应用玩法非常多，会是下一个技术风口所在。<br />
-<br /><br />
 
 # 致谢
 &emsp;&emsp;代码部分借用了<a href='https://github.com/Puzer/stylegan-encoder'>Puzer</a>和<a href='https://github.com/pbaylies/stylegan-encoder'>Pbaylies</a>的代码，感谢分享。<br />
