@@ -13,40 +13,44 @@ def rotate(img, degree):
     imgRotation = cv2.warpAffine(img, matRotation, (widthNew, heightNew))
     return imgRotation
 
-def merge_imge(bg_img, fg_img, crop, quad, pad):
+def merge_image(bg_img, fg_img, mask, crop, quad, pad):
     bg_img_ori = bg_img.copy()
     bg_img_alpha = cv2.cvtColor(bg_img, cv2.COLOR_BGR2BGRA)
-    fg_img = cv2.cvtColor(np.asarray(fg_img), cv2.COLOR_RGB2BGRA)
+    fg_img = cv2.cvtColor(np.asarray(fg_img), cv2.COLOR_RGB2BGR)
+    mask = np.asarray(mask)
     line = int(round(max(quad[2][0]-quad[0][0], quad[3][0]-quad[1][0])))
     radian = math.atan((quad[1][0]-quad[0][0])/(quad[1][1]-quad[0][1]))
     degree = math.degrees(radian)
     fg_img = rotate(fg_img, degree)
     fg_img = cv2.resize(fg_img, (line, line), interpolation=cv2.INTER_NEAREST)
+    mask = rotate(mask, degree)
+    mask = cv2.resize(mask, (line, line), interpolation=cv2.INTER_NEAREST)
     x1 = int(round(crop[0]-pad[0]+min([quad[0][0], quad[1][0], quad[2][0], quad[3][0]])))
     y1 = int(round(crop[1]-pad[0]+min([quad[0][1], quad[1][1], quad[2][1], quad[3][1]])))
     x2 = x1+line
     y2 = y1+line
     if x1 < 0:
         fg_img = fg_img[:, -x1:]
+        mask = mask[:, -x1:]
         x1 = 0
     if y1 < 0:
         fg_img = fg_img[-y1:, :]
+        mask = mask[-y1:, :]
         y1 = 0
     if x2 > bg_img.shape[1]:
         fg_img = fg_img[:, :-(x2-bg_img.shape[1])]
+        mask = mask[:, :-(x2-bg_img.shape[1])]
         x2 = bg_img.shape[1]
     if y2 > bg_img.shape[0]:
         fg_img = fg_img[:-(y2 - bg_img.shape[0]), :]
+        mask = mask[:-(y2 - bg_img.shape[0]), :]
         y2 = bg_img.shape[0]
-    alpha = fg_img[:, :, 3] / 255.0
+    #alpha = cv2.erode(mask / 255.0, np.ones((3,3), np.uint8), iterations = 1)
+    alpha = cv2.GaussianBlur(mask / 255.0, (5,5), 0)
     bg_img[y1:y2, x1:x2, 0] = (1. - alpha) * bg_img[y1:y2, x1:x2, 0] + alpha * fg_img[..., 0]
     bg_img[y1:y2, x1:x2, 1] = (1. - alpha) * bg_img[y1:y2, x1:x2, 1] + alpha * fg_img[..., 1]
     bg_img[y1:y2, x1:x2, 2] = (1. - alpha) * bg_img[y1:y2, x1:x2, 2] + alpha * fg_img[..., 2]
     bg_img[y1:y2, x1:x2] = cv2.fastNlMeansDenoisingColored(bg_img[y1:y2, x1:x2], None, 3.0, 3.0, 7, 21)
-    bg_img_alpha[y1:y2, x1:x2, 3] = (1. - alpha)*255.
-    fg_img_alpha = cv2.cvtColor(bg_img, cv2.COLOR_BGR2BGRA)
-    fg_img_alpha[:, :, 3] = 0.
-    fg_img_alpha[y1:y2, x1:x2, 3] = fg_img[:, :, 3]
 
     # Seamlessly clone src into dst and put the results in output
     width, height, channels = bg_img_ori.shape
@@ -55,6 +59,7 @@ def merge_imge(bg_img, fg_img, crop, quad, pad):
     normal_clone = cv2.seamlessClone(bg_img, bg_img_ori, mask, center, cv2.NORMAL_CLONE)
 
     return normal_clone
+
 
 def generate_face_mask(im, landmarks_detector):
     from imutils import face_utils
