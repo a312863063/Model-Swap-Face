@@ -2,6 +2,9 @@ import os
 import argparse
 #import project_image_without_optimizer as projector   # much faster but effect worse
 import project_image as projector
+from encoder.model import BiSeNet
+import torch
+import torchvision.transforms as transforms
 import numpy as np
 import PIL.Image
 from PIL import ImageFilter
@@ -9,6 +12,38 @@ import cv2
 from tools.face_alignment import image_align
 from tools.landmarks_detector import LandmarksDetector
 from tools import functions
+
+def vis_parsing_maps(im, parsing_anno, stride, save_im=False, save_path='vis_results/parsing_map_on_im.jpg'):
+    # Colors for all 20 parts
+    part_colors = [[255, 0, 0], [255, 85, 0], [255, 170, 0],
+                   [255, 0, 85], [255, 0, 170],
+                   [0, 255, 0], [85, 255, 0], [170, 255, 0],
+                   [0, 255, 85], [0, 255, 170],
+                   [0, 0, 255], [85, 0, 255], [170, 0, 255],
+                   [0, 85, 255], [0, 170, 255],
+                   [255, 255, 0], [255, 255, 85], [255, 255, 170],
+                   [255, 0, 255], [255, 85, 255], [255, 170, 255],
+                   [0, 255, 255], [85, 255, 255], [170, 255, 255]]
+
+    im = np.array(im)
+    vis_im = im.copy().astype(np.uint8)
+    vis_parsing_anno = parsing_anno.copy().astype(np.uint8)
+    vis_parsing_anno = cv2.resize(
+        vis_parsing_anno, None, fx=stride, fy=stride, interpolation=cv2.INTER_NEAREST)
+
+    vis_parsing_anno_color = np.zeros(
+        (vis_parsing_anno.shape[0], vis_parsing_anno.shape[1], 3)) + 255
+    mask = np.zeros(
+        (vis_parsing_anno.shape[0], vis_parsing_anno.shape[1]), dtype=np.uint8)
+    num_of_class = np.max(vis_parsing_anno)
+
+    idx = 11
+    for pi in range(1, num_of_class + 1):
+        index = np.where((vis_parsing_anno <= 5) & (
+            vis_parsing_anno >= 1) | ((vis_parsing_anno >= 10) & (vis_parsing_anno <= 13)))
+        mask[index[0], index[1]] = 1
+    return mask
+
 
 def main():
     """
@@ -20,9 +55,19 @@ def main():
     parser.add_argument('--project_style', type=str, default='model', help='model/pop-star/kids/wanghong...')
     parser.add_argument('--record', type=bool, default=True, help='Recording process')
     parser.add_argument('--landmark_path', type=str, default='networks/shape_predictor_68_face_landmarks.dat', help='face landmark file path')
+    parser.add_argument('--parsing_path', type=str, default='networks/79999_iter.pth', help='parsing model path')
     args, _ = parser.parse_known_args()
 
     landmarks_detector = LandmarksDetector(args.landmark_path)
+    parse_net = BiSeNet(n_classes=19)
+    parse_net.cuda()
+    parse_net.load_state_dict(torch.load(args.parsing_path))
+    parse_net.eval()
+    to_tensor = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
+    ])
+    
     os.makedirs(args.output_dir, exist_ok=True)
     dst_path = os.path.join(args.output_dir, args.input_img.rsplit('/', 1)[1].split('.')[0])+'_to-'+args.project_style+'/'
     os.makedirs(dst_path, exist_ok=True)
@@ -47,10 +92,14 @@ def main():
             aligned_image.save(record_path+'face_input.png', 'PNG')
 
         # mask extraction
-        image_sharp = aligned_image.resize((256, 256), PIL.Image.LANCZOS)
-        image_sharp = image_sharp.filter(ImageFilter.DETAIL)
+        image_sharp = aligned_image.filter(ImageFilter.DETAIL)
         alinged_image_np = np.array(image_sharp)
-        mask = functions.generate_face_mask(alinged_image_np, landmarks_detector)
+        img = to_tensor(alinged_image_np)
+        img = torch.unsqueeze(img, 0)
+        img = img.cuda()
+        out = parse_net(img)[0]
+        parsing = out.detach().squeeze(0).cpu().numpy().argmax(0)
+        mask = vis_parsing_maps(alinged_image_np, parsing, stride=1)
         mask = (255 * mask).astype('uint8')
         mask = PIL.Image.fromarray(mask, 'L')
         face_data['masks'].append(mask)
@@ -60,12 +109,12 @@ def main():
     print('Step2 - Face projection and mixing back...')
     projected_images, dlatents = projector.project(face_data['aligned_images'], face_data['masks'], args.project_style)
     merged_image = ori_img
-    for projected_image, dlatent, crop, quad, pad, record_path in zip(projected_images, dlatents,
-                                face_data['crops'], face_data['quads'], face_data['pads'], face_data['record_paths']):
+    for projected_image, dlatent, crop, quad, pad, record_path, mask in zip(projected_images, dlatents,
+                                face_data['crops'], face_data['quads'], face_data['pads'], face_data['record_paths'], face_data['masks']):
         if args.record:
             projected_image.save(record_path+'face_output.png', 'PNG')
             np.save(record_path+'dlatent.npy', dlatent)
-        merged_image = functions.merge_imge(merged_image, projected_image, crop, quad, pad)
+        merged_image = functions.merge_image(merged_image, projected_image, mask, crop, quad, pad)
     cv2.imwrite(dst_path+'output.png', merged_image)
 
 if __name__ == "__main__":
