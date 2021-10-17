@@ -45,7 +45,7 @@ def vis_parsing_maps(im, parsing_anno, stride, save_im=False, save_path='vis_res
         mask[index[0], index[1]] = 1
     return mask
 
-def find_max_region(bw_img):  # find of Maximum Connected Domain of parsing mask
+def find_max_region(bw_img):  # find Maximum Connected Domain of parsing mask
     labeled_img, num = label(bw_img, background=0, return_num=True)
     max_label = 0
     max_num = 0
