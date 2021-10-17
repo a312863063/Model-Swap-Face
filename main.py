@@ -12,6 +12,7 @@ import cv2
 from tools.face_alignment import image_align
 from tools.landmarks_detector import LandmarksDetector
 from tools import functions
+from skimage.measure import label
 
 def vis_parsing_maps(im, parsing_anno, stride, save_im=False, save_path='vis_results/parsing_map_on_im.jpg'):
     # Colors for all 20 parts
@@ -43,6 +44,17 @@ def vis_parsing_maps(im, parsing_anno, stride, save_im=False, save_path='vis_res
             vis_parsing_anno >= 1) | ((vis_parsing_anno >= 10) & (vis_parsing_anno <= 13)))
         mask[index[0], index[1]] = 1
     return mask
+
+def find_max_region(bw_img):  # find of Maximum Connected Domain of parsing mask
+    labeled_img, num = label(bw_img, background=0, return_num=True)
+    max_label = 0
+    max_num = 0
+    for i in range(1, num + 1): 
+        if np.sum(labeled_img == i) > max_num:
+            max_num = np.sum(labeled_img == i)
+            max_label = i
+    lcc = (labeled_img == max_label)
+    return lcc
 
 
 def main():
@@ -100,6 +112,7 @@ def main():
         out = parse_net(img)[0]
         parsing = out.detach().squeeze(0).cpu().numpy().argmax(0)
         mask = vis_parsing_maps(alinged_image_np, parsing, stride=1)
+        mask = find_max_region(mask)
         mask = (255 * mask).astype('uint8')
         mask = PIL.Image.fromarray(mask, 'L')
         face_data['masks'].append(mask)
